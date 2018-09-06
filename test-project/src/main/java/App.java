@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class App {
 
-    // 클래스로 나누기
+    // 메뉴기능추가
 
     static class Member {
         String name;
@@ -79,11 +79,59 @@ public class App {
         }
     }
 
-    public static void main(String[] args) {
-        inputMembers();
-        printMembers();
-        key.close();
+    public static String promptMenu() {
 
+        System.out.println("[메뉴]");
+        System.out.println("1.학생관리");
+        System.out.println("2.강사관리");
+        System.out.println("3.매니저관리");
+        System.out.println("0.종료");
+        System.out.println("번호를 입력하세요");
+        while (true) {
+            String menu = key.nextLine();
+            switch (menu) {
+            case "1":
+            case "2":
+            case "3":
+            case "0":
+                return menu;
+            default:
+                System.out.println("유효하지 않는 명령어입니다.");
+            }
+        }
+    }
+
+    public static void serviceStudentMenu(String menu) {
+
+        while (true) {
+            System.out.println("학생 관리>");
+            String command = key.nextLine();
+            if (command.equals("list")) {
+                printMembers();
+            } else if (command.equals("add")) {
+                inputMembers();
+            } else if (command.equals("quit")) {
+                break;
+            } else
+                System.out.println("유효하지 않는 명령어입니다.");
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        while (true) {
+
+            String menu = promptMenu();
+            if (menu.equals("1")) {
+                serviceStudentMenu(menu);
+            } else if (menu.equals("0")) {
+                System.out.println("안녕히 가세요!");
+                break;
+            } else
+                System.out.println("유효하지 않는 명령어입니다.");
+        }
+        key.close();
     }
 
 }
