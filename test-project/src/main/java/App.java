@@ -2,16 +2,16 @@ import java.util.Scanner;
 
 public class App {
 
-    // 배열을 이용하여 여러 회원의 정보 저장
-    public static void main(String[] args) {
+    static String[] names = new String[10];
+    static int[] ages = new int[10];
+    static String[] ids = new String[10];
+    static String[] depts = new String[10];
 
-        String[] names = new String[10];
-        int[] ages = new int[10];
-        String[] ids = new String[10];
-        String[] depts = new String[10];
+    static Scanner key = new Scanner(System.in);
+    static int index = 0;
 
-        Scanner key = new Scanner(System.in);
-        int index = 0;
+    public static void inputMembers() {
+
         while (true) {
             System.out.println("이름? ");
             names[index] = key.nextLine();
@@ -29,11 +29,20 @@ public class App {
 
         }
 
-        for (int i = 0; i < index; i++) {
-            System.out.printf("%s %d %s %s\n", names[i], ages[i], ids[i], depts[i]);
-        }
+    }
 
+    public static void printMembers() {
+        System.out.println("이름\t나이\t학번\t학과");
+        for (int i = 0; i < index; i++) {
+            System.out.printf("%s\t%d\t%s\t%s\n", names[i], ages[i], ids[i], depts[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        inputMembers();
+        printMembers();
         key.close();
 
     }
+
 }
