@@ -2,12 +2,7 @@ import java.util.Scanner;
 
 public class App {
 
-    // 학생관리 기능추가
-    // 학생을 따로 나누기위해 Member클래스에 있던 id와 dept는 Student클래스로.
-    // 뿐만 아니라, dept는 major로 수정
-
-    // 강사기능 추가
-
+    // 매니저관리 기능추가
     static class Member {
         String name;
         int age;
@@ -63,6 +58,18 @@ public class App {
         public void setPay(int pay) {
             this.pay = pay;
         }
+    }
+
+    static class Manager extends Member {
+        String position;
+
+        public String getPosition() {
+            return position;
+        }
+
+        public void setPosition(String position) {
+            this.position = position;
+        }
 
     }
 
@@ -70,9 +77,11 @@ public class App {
 
     static Student[] students = new Student[10];
     static Teacher[] teachers = new Teacher[10];
+    static Manager[] managers = new Manager[10];
 
     static int studentIndex = 0;
     static int teacherIndex = 0;
+    static int managerIndex = 0;
 
     public static void inputStudent() {
 
@@ -114,6 +123,28 @@ public class App {
         }
     }
 
+    public static void inputManager() {
+
+        Manager m = new Manager();
+        while (true) {
+
+            System.out.println("이름? ");
+            m.setName(key.nextLine());
+            System.out.println("나이? ");
+            m.setAge(Integer.parseInt(key.nextLine()));
+            System.out.println("전공? ");
+            m.setMajor(key.nextLine());
+            System.out.println("직위? ");
+            m.setPosition(key.nextLine());
+
+            managers[managerIndex++] = m;
+
+            System.out.println("계속 입력하시겠습니까?");
+            if ("n".equalsIgnoreCase(key.nextLine()))
+                break;
+        }
+    }
+
     public static void printStudent() {
 
         int count = 0;
@@ -132,6 +163,16 @@ public class App {
             if (count++ == teacherIndex)
                 break;
             System.out.printf("%s %d %s %d\n", t.getName(), t.getAge(), t.getMajor(), t.getPay());
+        }
+    }
+
+    public static void printManager() {
+        int count = 0;
+        for (Manager m : managers) {
+            if (count++ == managerIndex)
+                break;
+            System.out.printf("%s %d %s %s\n", m.getName(), m.getAge(), m.getMajor(), m.getPosition());
+
         }
     }
 
@@ -190,6 +231,21 @@ public class App {
 
     }
 
+    public static void serviceManagerMenu() {
+        while (true) {
+            System.out.println("매니저 관리>");
+            String command = key.nextLine();
+            if (command.equals("list")) {
+                printManager();
+            } else if (command.equals("add")) {
+                inputManager();
+            } else if (command.equals("quit")) {
+                break;
+            } else
+                System.out.println("유효하지 않는 명령어입니다.");
+        }
+    }
+
     public static void main(String[] args) {
 
         while (true) {
@@ -199,6 +255,8 @@ public class App {
                 serviceStudentMenu();
             } else if (menu.equals("2")) {
                 serviceTeacherMenu();
+            } else if (menu.equals("3")) {
+                serviceManagerMenu();
             } else if (menu.equals("0")) {
                 System.out.println("안녕히 가세요!");
                 break;
