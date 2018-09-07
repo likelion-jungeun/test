@@ -6,6 +6,8 @@ public class App {
     // 학생을 따로 나누기위해 Member클래스에 있던 id와 dept는 Student클래스로.
     // 뿐만 아니라, dept는 major로 수정
 
+    // 강사기능 추가
+
     static class Member {
         String name;
         int age;
@@ -51,10 +53,26 @@ public class App {
 
     }
 
+    static class Teacher extends Member {
+        int pay;
+
+        public int getPay() {
+            return pay;
+        }
+
+        public void setPay(int pay) {
+            this.pay = pay;
+        }
+
+    }
+
     static Scanner key = new Scanner(System.in);
-    static int index = 0;
 
     static Student[] students = new Student[10];
+    static Teacher[] teachers = new Teacher[10];
+
+    static int studentIndex = 0;
+    static int teacherIndex = 0;
 
     public static void inputStudent() {
 
@@ -68,7 +86,7 @@ public class App {
             m.setMajor(key.nextLine());
             System.out.println("학번? ");
             m.setId(key.nextLine());
-            students[index++] = m;
+            students[studentIndex++] = m;
             System.out.println("계속 입력하시겠습니까?");
             if ("n".equalsIgnoreCase(key.nextLine()))
                 break;
@@ -77,16 +95,44 @@ public class App {
 
     }
 
+    public static void inputTeacher() {
+        Teacher t = new Teacher();
+        while (true) {
+            System.out.println("이름? ");
+            t.setName(key.nextLine());
+            System.out.println("나이? ");
+            t.setAge(Integer.parseInt(key.nextLine()));
+            System.out.println("전공? ");
+            t.setMajor(key.nextLine());
+            System.out.println("급여? ");
+            t.setPay(Integer.parseInt(key.nextLine()));
+
+            teachers[teacherIndex++] = t;
+            System.out.println("계속 입력하시겠습니까?");
+            if ("n".equalsIgnoreCase(key.nextLine()))
+                break;
+        }
+    }
+
     public static void printStudent() {
 
         int count = 0;
         for (Student s : students) {
-            if (count++ == index)
+            if (count++ == studentIndex)
                 break;
-            System.out.printf("%s %d %s %s\n", s.getName(),
-                    s.getAge(), s.getMajor(), s.getId());
+            System.out.printf("%s %d %s %s\n", s.getName(), s.getAge(), s.getMajor(), s.getId());
         }
+    }
 
+    public static void printTeacher() {
+
+        int count = 0;
+
+        for (Teacher t : teachers) {
+            if (count++ == teacherIndex)
+                break;
+            System.out.printf("%s %d %s %d\n", t.getName(), t.getAge(), t.getMajor(), t.getPay());
+        }
     }
 
     public static String promptMenu() {
@@ -128,6 +174,22 @@ public class App {
 
     }
 
+    public static void serviceTeacherMenu() {
+        while (true) {
+            System.out.println("강사 관리>");
+            String command = key.nextLine();
+            if (command.equals("list")) {
+                printTeacher();
+            } else if (command.equals("add")) {
+                inputTeacher();
+            } else if (command.equals("quit")) {
+                break;
+            } else
+                System.out.println("유효하지 않는 명령어입니다.");
+        }
+
+    }
+
     public static void main(String[] args) {
 
         while (true) {
@@ -135,6 +197,8 @@ public class App {
             String menu = promptMenu();
             if (menu.equals("1")) {
                 serviceStudentMenu();
+            } else if (menu.equals("2")) {
+                serviceTeacherMenu();
             } else if (menu.equals("0")) {
                 System.out.println("안녕히 가세요!");
                 break;
