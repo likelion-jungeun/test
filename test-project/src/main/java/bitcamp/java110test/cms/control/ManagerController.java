@@ -1,8 +1,13 @@
+package bitcamp.java110test.cms.control;
+
 import java.util.Scanner;
+import bitcamp.java110test.cms.domain.Member;
 
 public class ManagerController {
 
-    static Scanner key;
+    static Manager[] managers = new Manager[10];
+    static int managerIndex = 0;
+    public static Scanner key;
 
     static class Manager extends Member {
         String position;
@@ -16,9 +21,6 @@ public class ManagerController {
         }
 
     }
-
-    static Manager[] managers = new Manager[10];
-    static int managerIndex = 0;
 
     public static void inputManager() {
 

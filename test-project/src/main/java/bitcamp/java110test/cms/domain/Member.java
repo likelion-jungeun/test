@@ -1,4 +1,6 @@
-class Member {
+package bitcamp.java110test.cms.domain;
+
+public class Member {
     String name;
     int age;
     String major;

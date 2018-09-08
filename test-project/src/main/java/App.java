@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+import bitcamp.java110test.cms.control.ManagerController;
+import bitcamp.java110test.cms.control.StudentController;
+import bitcamp.java110test.cms.control.TeacherController;
+
 public class App {
 
     // 클래스 나누기

@@ -1,8 +1,12 @@
+package bitcamp.java110test.cms.control;
+
 import java.util.Scanner;
+
+import bitcamp.java110test.cms.domain.Member;
 
 public class TeacherController {
 
-    static Scanner key;
+    public static Scanner key;
 
     static class Teacher extends Member {
         int pay;
