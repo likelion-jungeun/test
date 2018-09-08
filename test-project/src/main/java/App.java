@@ -6,9 +6,7 @@ import bitcamp.java110test.cms.control.TeacherController;
 
 public class App {
 
-    /* 배열 목록 처리 추가 -> 배열 크기보다 더 많이 추가하면 배열을 추가적으로 더.
-     delete랑 detail 기능도 추가
-     inputTeacher(), inputManager()에서 잘못된 코드 발견 및 수정*/
+   //학생 목록 처리 별도 클래스로 분리
 
     static Scanner key = new Scanner(System.in);
 
