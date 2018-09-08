@@ -1,6 +1,5 @@
 package bitcamp.java110test.cms.dao;
 
-import bitcamp.java110test.cms.domain.Student;
 import bitcamp.java110test.cms.domain.Teacher;
 
 public class TeacherList {

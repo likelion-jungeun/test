@@ -1,26 +1,13 @@
 package bitcamp.java110test.cms.control;
 
 import java.util.Scanner;
-import bitcamp.java110test.cms.domain.Member;
+
+import bitcamp.java110test.cms.dao.ManagerList;
+import bitcamp.java110test.cms.domain.Manager;
 
 public class ManagerController {
 
-    static Manager[] managers = new Manager[5];
-    static int managerIndex = 0;
     public static Scanner key;
-
-    static class Manager extends Member {
-        String position;
-
-        public String getPosition() {
-            return position;
-        }
-
-        public void setPosition(String position) {
-            this.position = position;
-        }
-
-    }
 
     public static void inputManager() {
 
@@ -35,10 +22,7 @@ public class ManagerController {
             System.out.println("직위? ");
             m.setPosition(key.nextLine());
 
-            if (managerIndex == managers.length)
-                increaseStorage();
-
-            managers[managerIndex++] = m;
+            ManagerList.add(m);
 
             System.out.println("계속 입력하시겠습니까?");
             if ("n".equalsIgnoreCase(key.nextLine()))
@@ -47,11 +31,10 @@ public class ManagerController {
     }
 
     public static void printManager() {
-        int count = 0;
-        for (Manager m : managers) {
-            if (count++ == managerIndex)
-                break;
-            System.out.printf("[%d] %s %d %s %s\n", count - 1, m.getName(), m.getAge(), m.getMajor(), m.getPosition());
+        for (int i = 0; i < ManagerList.size(); i++) {
+            Manager m = ManagerList.get(i);
+            System.out.printf("[%d] %s %d %s %s\n", i, m.getName(), m.getAge(), m.getMajor(), m.getPosition());
+
         }
 
     }
@@ -61,15 +44,13 @@ public class ManagerController {
         System.out.println("삭제할 번호를 입력하세요");
         int no = Integer.parseInt(key.nextLine());
 
-        if (no < 0 || no >= managerIndex) {
+        if (no < 0 || no >= ManagerList.size()) {
             System.out.println("무효한 번호입니다.");
             return;
         }
 
-        for (int i = no; i < managerIndex - 1; i++) {
-            managers[i] = managers[i + 1];
-        }
-        managerIndex--;
+        ManagerList.remove(no);
+        System.out.println("삭제하였습니다.");
 
     }
 
@@ -77,27 +58,16 @@ public class ManagerController {
         System.out.println("조회할 번호를 입력하세요");
         int no = Integer.parseInt(key.nextLine());
 
-        if (no < 0 || no >= managerIndex) {
+        if (no < 0 || no >= ManagerList.size()) {
             System.out.println("무효한 번호입니다.");
             return;
         }
 
-        System.out.printf("이름 : %s\n", managers[no].getName());
-        System.out.printf("나이 : %d\n", managers[no].getAge());
-        System.out.printf("전공 : %s\n", managers[no].getMajor());
-        System.out.printf("직위 : %s\n", managers[no].getPosition());
-
-    }
-
-    // 배열 꽉 찼을 때 배열 늘리기
-    public static void increaseStorage() {
-
-        Manager[] newList = new Manager[managers.length + 3];
-
-        for (int i = 0; i < managers.length; i++) {
-            newList[i] = managers[i];
-        }
-        managers = newList;
+        Manager manager = ManagerList.get(no);
+        System.out.printf("이름 : %s\n", manager.getName());
+        System.out.printf("나이 : %d\n", manager.getAge());
+        System.out.printf("전공 : %s\n", manager.getMajor());
+        System.out.printf("직위 : %s\n", manager.getPosition());
 
     }
 
