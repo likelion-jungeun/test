@@ -24,8 +24,9 @@ public class TeacherController {
     static int teacherIndex = 0;
 
     public static void inputTeacher() {
-        Teacher t = new Teacher();
+
         while (true) {
+            Teacher t = new Teacher();
             System.out.println("이름? ");
             t.setName(key.nextLine());
             System.out.println("나이? ");
@@ -35,6 +36,8 @@ public class TeacherController {
             System.out.println("급여? ");
             t.setPay(Integer.parseInt(key.nextLine()));
 
+            if (teacherIndex == teachers.length)
+                increaseStorage();
             teachers[teacherIndex++] = t;
             System.out.println("계속 입력하시겠습니까?");
             if ("n".equalsIgnoreCase(key.nextLine()))
@@ -49,8 +52,52 @@ public class TeacherController {
         for (Teacher t : teachers) {
             if (count++ == teacherIndex)
                 break;
-            System.out.printf("%s %d %s %d\n", t.getName(), t.getAge(), t.getMajor(), t.getPay());
+            System.out.printf("[%d] %s %d %s %d\n", count - 1, t.getName(), t.getAge(), t.getMajor(), t.getPay());
         }
+    }
+
+    public static void deleteTeacher() {
+        System.out.println("삭제할 번호를 입력하세요.");
+        int no = Integer.parseInt(key.nextLine());
+
+        if (no < 0 || no >= teacherIndex) {
+            System.out.println("무효한 번호입니다.");
+            return;
+        }
+
+        for (int i = no; i < teacherIndex - 1; i++) {
+            teachers[i] = teachers[i + 1];
+        }
+        teacherIndex--;
+
+    }
+
+    public static void detailTeacher() {
+
+        System.out.println("조회할 번호를 입력하세요.");
+        int no = Integer.parseInt(key.nextLine());
+
+        if (no < 0 || no >= teacherIndex) {
+            System.out.println("무효한 번호입니다.");
+            return;
+        }
+
+        System.out.printf("이름 : %s\n", teachers[no].getName());
+        System.out.printf("나이 : %d\n", teachers[no].getAge());
+        System.out.printf("전공 : %s\n", teachers[no].getMajor());
+        System.out.printf("직위 : %d\n", teachers[no].getPay());
+
+    }
+
+    public static void increaseStorage() {
+
+        Teacher[] newList = new Teacher[teachers.length + 3];
+        for (int i = 0; i < teachers.length; i++) {
+
+            newList[i] = teachers[i];
+        }
+        teachers = newList;
+
     }
 
     public static void serviceTeacherMenu() {
@@ -61,6 +108,10 @@ public class TeacherController {
                 printTeacher();
             } else if (command.equals("add")) {
                 inputTeacher();
+            } else if (command.equals("delete")) {
+                deleteTeacher();
+            } else if (command.equals("detail")) {
+                detailTeacher();
             } else if (command.equals("quit")) {
                 break;
             } else
