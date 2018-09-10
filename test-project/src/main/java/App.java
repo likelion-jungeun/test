@@ -6,7 +6,7 @@ import bitcamp.java110test.cms.control.TeacherController;
 
 public class App {
 
-   //학생 목록 처리 별도 클래스로 분리
+    // arrayList 생성
 
     static Scanner key = new Scanner(System.in);
 
@@ -33,19 +33,21 @@ public class App {
     }
 
     public static void main(String[] args) {
-        StudentController.key = key;
-        TeacherController.key = key;
-        ManagerController.key = key;
+        
+        StudentController sc=new StudentController(key);
+        TeacherController tc=new TeacherController(key);
+        ManagerController mc=new ManagerController(key);
+        
 
         while (true) {
 
             String menu = promptMenu();
             if (menu.equals("1")) {
-                StudentController.serviceStudentMenu();
+                sc.serviceStudentMenu();
             } else if (menu.equals("2")) {
-                TeacherController.serviceTeacherMenu();
+                tc.serviceTeacherMenu();
             } else if (menu.equals("3")) {
-                ManagerController.serviceManagerMenu();
+                mc.serviceManagerMenu();
             } else if (menu.equals("0")) {
                 System.out.println("안녕히 가세요!");
                 break;

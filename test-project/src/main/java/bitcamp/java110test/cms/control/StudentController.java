@@ -2,14 +2,19 @@ package bitcamp.java110test.cms.control;
 
 import java.util.Scanner;
 
-import bitcamp.java110test.cms.dao.StudentList;
 import bitcamp.java110test.cms.domain.Student;
+import bitcamp.java110test.cms.util.ArrayList;
 
 public class StudentController {
 
     public static Scanner key;
+    private ArrayList students = new ArrayList();
 
-    public static void inputStudent() {
+    public StudentController(Scanner key) {
+        this.key = key;
+    }
+
+    public void inputStudent() {
 
         while (true) {
             Student m = new Student();
@@ -22,7 +27,7 @@ public class StudentController {
             System.out.println("학번? ");
             m.setId(key.nextLine());
 
-            StudentList.add(m);
+            students.add(m);
             System.out.println("계속 입력하시겠습니까?");
             if ("n".equalsIgnoreCase(key.nextLine()))
                 break;
@@ -31,44 +36,44 @@ public class StudentController {
 
     }
 
-    public static void printStudent() {
+    public void printStudent() {
 
-        for (int i = 0; i < StudentList.size(); i++) {
-            Student s = StudentList.get(i);
+        for (int i = 0; i < students.size(); i++) {
+            Student s = (Student) students.get(i);
             System.out.printf("[%d] %s %d %s %s\n", i, s.getName(), s.getAge(), s.getMajor(), s.getId());
 
         }
     }
 
-    public static void deleteStudent() {
+    public void deleteStudent() {
         System.out.println("삭제할 번호를 입력하세요.");
         int no = Integer.parseInt(key.nextLine());
 
-        if (no < 0 || no >= StudentList.size()) {
+        if (no < 0 || no >= students.size()) {
             System.out.println("무효한 번호입니다.");
             return;
         }
 
-        StudentList.remove(no);
+        students.remove(no);
         System.out.println("삭제하였습니다.");
     }
 
-    public static void detailStudent() {
+    public void detailStudent() {
         System.out.println("조회할 번호를 입력하세요.");
         int no = Integer.parseInt(key.nextLine());
-        if (no < 0 || no >= StudentList.size()) {
+        if (no < 0 || no >= students.size()) {
             System.out.println("무효한 번호입니다.");
             return;
         }
-        Student student = StudentList.get(no);
-        System.out.printf("이름 : %s\n", student.getName());
-        System.out.printf("나이 : %d\n", student.getAge());
-        System.out.printf("전공 : %s\n", student.getMajor());
-        System.out.printf("학번 : %s\n", student.getId());
+        Student s = (Student) students.get(no);
+        System.out.printf("이름 : %s\n", s.getName());
+        System.out.printf("나이 : %d\n", s.getAge());
+        System.out.printf("전공 : %s\n", s.getMajor());
+        System.out.printf("학번 : %s\n", s.getId());
 
     }
 
-    public static void serviceStudentMenu() {
+    public void serviceStudentMenu() {
 
         while (true) {
             System.out.println("학생 관리>");
