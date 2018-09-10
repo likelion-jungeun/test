@@ -7,8 +7,8 @@ import bitcamp.java110test.cms.util.ArrayList;
 
 public class StudentController {
 
-    public static Scanner key;
-    private ArrayList students = new ArrayList();
+    public Scanner key;
+    private ArrayList<Student> students = new ArrayList<>();
 
     public StudentController(Scanner key) {
         this.key = key;
@@ -39,7 +39,7 @@ public class StudentController {
     public void printStudent() {
 
         for (int i = 0; i < students.size(); i++) {
-            Student s = (Student) students.get(i);
+            Student s = students.get(i);
             System.out.printf("[%d] %s %d %s %s\n", i, s.getName(), s.getAge(), s.getMajor(), s.getId());
 
         }
@@ -65,7 +65,7 @@ public class StudentController {
             System.out.println("무효한 번호입니다.");
             return;
         }
-        Student s = (Student) students.get(no);
+        Student s = students.get(no);
         System.out.printf("이름 : %s\n", s.getName());
         System.out.printf("나이 : %d\n", s.getAge());
         System.out.printf("전공 : %s\n", s.getMajor());

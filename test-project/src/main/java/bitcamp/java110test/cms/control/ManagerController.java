@@ -7,8 +7,8 @@ import bitcamp.java110test.cms.util.ArrayList;
 
 public class ManagerController {
 
-    public static Scanner key;
-    private ArrayList managers = new ArrayList();
+    public Scanner key;
+    private ArrayList<Manager> managers = new ArrayList<>();
 
     // 반드시 입력이 필요하기 때문에, 생성자를 써서 한 번 더 강조 해줌
     public ManagerController(Scanner key) {
@@ -38,7 +38,7 @@ public class ManagerController {
 
     public void printManager() {
         for (int i = 0; i < managers.size(); i++) {
-            Manager m = (Manager) managers.get(i);
+            Manager m = managers.get(i);
             System.out.printf("[%d] %s %d %s %s\n", i, m.getName(), m.getAge(), m.getMajor(), m.getPosition());
 
         }
@@ -69,7 +69,7 @@ public class ManagerController {
             return;
         }
 
-        Manager m = (Manager) managers.get(no);
+        Manager m = managers.get(no);
         System.out.printf("이름 : %s\n", m.getName());
         System.out.printf("나이 : %d\n", m.getAge());
         System.out.printf("전공 : %s\n", m.getMajor());

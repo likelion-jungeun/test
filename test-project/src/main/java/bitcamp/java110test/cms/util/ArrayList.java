@@ -1,9 +1,9 @@
 package bitcamp.java110test.cms.util;
 
-public class ArrayList {
+public class ArrayList<T> {
 
-    Object[] list = new Object[10];
-    int index = 0;
+    private Object[] list = new Object[10];
+    private int index = 0;
 
     public void add(Object obj) {
         if (index == list.length) {
@@ -35,11 +35,12 @@ public class ArrayList {
         return index;
     }
 
-    public Object get(int no) {
+    @SuppressWarnings("unchecked")
+    public T get(int no) {
         if (no < 0 || no >= index) {
             return null;
         }
 
-        return list[no];
+        return (T)list[no];
     }
 }
